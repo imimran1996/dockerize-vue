@@ -22,6 +22,22 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
+    - name: Generate build ID
+      id: prep
+      run: |
+          sha=${GITHUB_SHA::8}
+          ts=$(date +%s)
+          if [[ "${{ github.ref_name }}" == "main" ]]; then
+            echo "::set-output name=BUILD_ID::dev-${sha}-${ts}" 
+          else
+            echo "::set-output name=BUILD_ID::stable-${sha}-${ts}" 
+          fi
+          
+    - name: Echo ID
+      run: |
+        echo ${{ github.ref_name }}
+        echo "${{ steps.prep.outputs.BUILD_ID }}"
+        
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
       
@@ -46,8 +62,8 @@ jobs:
     - name: Build and push (DOCKER-VUE)
       uses: docker/build-push-action@v3
       with:
-        context: .
+        context: ./
         push: true
         tags:  |
-          ${{ env.IMAGE_NAME }}:latest
+          ${{ env.IMAGE_NAME }}:${{ steps.prep.outputs.BUILD_ID }}
         labels: ${{ steps.meta.outputs.labels }}
