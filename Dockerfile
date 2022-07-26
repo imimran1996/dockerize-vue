@@ -1,6 +1,7 @@
-ARG PORT=8080
+ARG PORT=8081
 
 FROM node:latest as build-stage
+
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
@@ -11,7 +12,7 @@ FROM node:latest as production-stage
 WORKDIR /app
 ARG PORT
 ENV PORT = ${PORT}
-EXPOSE 8080
+EXPOSE 8081
 COPY --from=build-stage /app/dist   ./dist
 COPY --from=build-stage /app/server ./server
 COPY --from=build-stage /app/package*.json ./

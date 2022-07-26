@@ -3,7 +3,7 @@ const express = require("express");
 const history = require("connect-history-api-fallback");
 const pkg = require("../package.json");
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8081;
 const ROOT_DIR = resolve(__dirname, "../dist");
 
 console.log(ROOT_DIR);
