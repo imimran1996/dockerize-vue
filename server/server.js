@@ -32,9 +32,6 @@ app.get("/readiness", async (req, res) => {
       },
       {
         name: "Environment check",
-        customCheckerFunction: async () => {
-          return { status: process.env.VUE_APP_GRAPHQL_URI !== undefined };
-        },
       },
     ],
   });

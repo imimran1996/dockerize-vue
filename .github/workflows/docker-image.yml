@@ -62,6 +62,7 @@ jobs:
     - name: Build and push (DOCKER-VUE)
       uses: docker/build-push-action@v3
       with:
+        context: .
         push: true
         tags:  |
           ${{ env.IMAGE_NAME }}:${{ steps.prep.outputs.BUILD_ID }}
