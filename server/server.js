@@ -3,10 +3,10 @@ const express = require("express");
 const history = require("connect-history-api-fallback");
 const pkg = require("../package.json");
 
-const PORT = process.env.PORT || 8081;
+const PORT = 8080;
 const ROOT_DIR = resolve(__dirname, "../dist");
 
-console.log(ROOT_DIR);
+console.log(ROOT_DIR + "/index.html");
 const app = express();
 
 app.get("/liveness", async (req, res) => {
@@ -16,6 +16,7 @@ app.get("/liveness", async (req, res) => {
     integrations: [],
   });
 });
+
 app.get("/readiness", async (req, res) => {
   res.send({
     name: pkg.name,
@@ -36,7 +37,7 @@ app.get("/readiness", async (req, res) => {
     ],
   });
 });
-// app.use(express.static(ROOT_DIR));
+app.use(express.static(ROOT_DIR));
 app.use(history());
 app.use(express.static(ROOT_DIR));
 app.get("/", function (req, res) {
