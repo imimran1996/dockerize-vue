@@ -10,7 +10,7 @@ RUN npm run build
 FROM node:latest as production-stage
 WORKDIR /app
 ARG PORT
-ENV PORT = ${PORT}
+ENV PORT ${PORT}
 EXPOSE 8080
 COPY --from=build-stage /app/dist   ./dist
 COPY --from=build-stage /app/server ./server

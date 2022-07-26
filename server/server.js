@@ -3,10 +3,10 @@ const express = require("express");
 const history = require("connect-history-api-fallback");
 const pkg = require("../package.json");
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 const ROOT_DIR = resolve(__dirname, "../dist");
 
-console.log(ROOT_DIR + "/index.html");
+console.log(process.env.PORT);
 const app = express();
 
 app.get("/liveness", async (req, res) => {
