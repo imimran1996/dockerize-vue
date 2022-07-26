@@ -35,19 +35,8 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
 
-    - name: Extract metadata (tags, labels) for Docker
-      id: meta
-      uses: docker/metadata-action@v3
-      with:
-        images:
-          ${{ env.IMAGE_NAME }}
-          
-
     - name: Build and push (DOCKER-VUE)
       uses: docker/build-push-action@v3
       with:
-        context: ./
         push: true
-        tags:  |
-          ${{ env.IMAGE_NAME }}:latest
-        labels: ${{ steps.meta.outputs.labels }}
+        tags: ${{ env.IMAGE_NAME }}:latest
